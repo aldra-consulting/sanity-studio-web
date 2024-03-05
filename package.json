@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "platform",
+  "name": "@aldra-consulting/sanity-studio-web",
   "version": "1.0.0",
   "license": "UNLICENSED",
   "private": true,
