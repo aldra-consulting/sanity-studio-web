@@ -23,6 +23,7 @@
     "clean:coverage": "rimraf coverage",
     "clean:lib": "rimraf lib",
     "commit": "cz",
+    "compile": "run-s typescript:compile",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
     "dev": "sanity dev",
@@ -33,7 +34,8 @@
     "lint:fix": "run-p lint:eslint:fix",
     "prepare": "node .husky/install.mjs",
     "preview": "sanity preview lib",
-    "start": "sanity start"
+    "start": "sanity start",
+    "typescript:compile": "tsc"
   },
   "dependencies": {
     "@sanity/vision": "^3.30.1",
