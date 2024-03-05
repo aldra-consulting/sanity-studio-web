@@ -38,6 +38,8 @@
   "devDependencies": {
     "@aldra-consulting/eslint-config-typescript-react": "^1.0.1",
     "@aldra-consulting/typescript-config": "^1.0.0",
+    "@commitlint/cli": "^19.0.3",
+    "@commitlint/config-conventional": "^19.0.3",
     "@sanity/eslint-config-studio": "^3.0.1",
     "@types/react": "^18.0.25",
     "eslint-config-prettier": "^9.1.0",
