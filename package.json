@@ -28,6 +28,7 @@
     "lint:eslint:fix": "eslint --ext ts,tsx,js,jsx,json . --fix",
     "lint:eslint:staged:fix": "eslint --ext ts,tsx,js,jsx,json --fix",
     "lint:fix": "run-p lint:eslint:fix",
+    "prepare": "node .husky/install.mjs",
     "preview": "sanity preview lib",
     "start": "sanity start"
   },
@@ -48,6 +49,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-json-format": "^2.0.1",
     "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.1.6"
