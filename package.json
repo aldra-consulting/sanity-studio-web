@@ -13,6 +13,10 @@
   },
   "license": "UNLICENSED",
   "private": true,
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
   "scripts": {
     "build": "sanity build lib -y",
     "deploy": "sanity deploy",
