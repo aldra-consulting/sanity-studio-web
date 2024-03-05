@@ -8,6 +8,7 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build lib -y",
+    "preview": "sanity preview lib",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
   },
