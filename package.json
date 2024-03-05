@@ -18,23 +18,22 @@
     "npm": ">=10"
   },
   "scripts": {
-    "build": "sanity build lib -y",
+    "build": "run-s clean compile sanity:build",
     "clean": "run-p clean:lib clean:coverage",
     "clean:coverage": "rimraf coverage",
     "clean:lib": "rimraf lib",
     "commit": "cz",
     "compile": "run-s typescript:compile",
-    "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy",
-    "dev": "sanity dev",
     "lint": "run-p lint:eslint",
     "lint:eslint": "eslint --ext ts,tsx,js,jsx,json .",
     "lint:eslint:fix": "eslint --ext ts,tsx,js,jsx,json . --fix",
     "lint:eslint:staged:fix": "eslint --ext ts,tsx,js,jsx,json --fix",
     "lint:fix": "run-p lint:eslint:fix",
     "prepare": "node .husky/install.mjs",
-    "preview": "sanity preview lib",
-    "start": "sanity start",
+    "sanity:build": "sanity build lib -y",
+    "sanity:dev": "sanity dev",
+    "sanity:preview": "sanity preview lib",
+    "start": "run-s sanity:dev",
     "typescript:compile": "tsc"
   },
   "dependencies": {
