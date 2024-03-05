@@ -3,6 +3,10 @@
   "name": "@aldra-consulting/sanity-studio-web",
   "version": "0.0.0",
   "description": "An instance of Sanity Studio for content management.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:aldra-consulting/sanity-studio-web.git"
+  },
   "license": "UNLICENSED",
   "private": true,
   "main": "package.json",
