@@ -19,6 +19,9 @@
   },
   "scripts": {
     "build": "sanity build lib -y",
+    "clean": "run-p clean:lib clean:coverage",
+    "clean:coverage": "rimraf coverage",
+    "clean:lib": "rimraf lib",
     "commit": "cz",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
@@ -55,6 +58,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.5",
     "semantic-release": "^23.0.2",
     "typescript": "^5.3.3"
   }
