@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "platform",
   "version": "1.0.0",
   "license": "UNLICENSED",
