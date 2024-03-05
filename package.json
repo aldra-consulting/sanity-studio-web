@@ -13,7 +13,6 @@
   },
   "license": "UNLICENSED",
   "private": true,
-  "main": "package.json",
   "scripts": {
     "build": "sanity build lib -y",
     "deploy": "sanity deploy",
