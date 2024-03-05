@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git@github.com:aldra-consulting/sanity-studio-web.git"
   },
+  "author": {
+    "name": "Alexander Zakharov (azaxarov)",
+    "email": "alexander.zakharov@aldra.no"
+  },
   "license": "UNLICENSED",
   "private": true,
   "main": "package.json",
