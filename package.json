@@ -31,7 +31,7 @@
     "lint:fix": "run-p lint:eslint:fix",
     "prepare": "node .husky/install.mjs",
     "sanity:build": "sanity build lib -y",
-    "sanity:dev": "sanity dev",
+    "sanity:dev": "NODE_ENV=development sanity dev",
     "sanity:preview": "sanity preview lib",
     "start": "run-s sanity:dev",
     "typescript:compile": "tsc"

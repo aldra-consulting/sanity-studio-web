@@ -2,10 +2,14 @@ import { join } from 'path';
 
 import { defineCliConfig } from 'sanity/cli';
 
+import env from '@project/env';
+
+const { PROJECT_ID: projectId, DATASET: dataset } = env();
+
 export default defineCliConfig({
   api: {
-    projectId: 'g5uhz92f',
-    dataset: 'production',
+    projectId,
+    dataset,
   },
   server: {
     port: 8005,
