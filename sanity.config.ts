@@ -2,6 +2,7 @@ import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 
+import { internationalisation } from '@project/plugins';
 import { schemaTypes } from '@project/schemaTypes';
 import { type Environment } from '@project/types';
 import { checkEnvironmentVariables } from '@project/utils';
@@ -21,7 +22,7 @@ export default defineConfig({
   title: 'Platform',
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool(), visionTool(), internationalisation()],
   schema: {
     types: schemaTypes,
   },
