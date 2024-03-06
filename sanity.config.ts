@@ -1,8 +1,6 @@
-import { visionTool } from '@sanity/vision';
 import { defineConfig } from 'sanity';
-import { structureTool } from 'sanity/structure';
 
-import { internationalisation } from '@project/plugins';
+import plugins from '@project/plugins';
 import schema from '@project/schema';
 import { type Environment } from '@project/types';
 import { checkEnvironmentVariables } from '@project/utils';
@@ -22,6 +20,6 @@ export default defineConfig({
   title: 'Platform',
   projectId,
   dataset,
-  plugins: [structureTool(), visionTool(), internationalisation()],
+  plugins,
   schema,
 });
