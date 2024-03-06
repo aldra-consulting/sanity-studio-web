@@ -3,7 +3,7 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 
 import { internationalisation } from '@project/plugins';
-import { schemaTypes } from '@project/schemaTypes';
+import schema from '@project/schema';
 import { type Environment } from '@project/types';
 import { checkEnvironmentVariables } from '@project/utils';
 
@@ -23,7 +23,5 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [structureTool(), visionTool(), internationalisation()],
-  schema: {
-    types: schemaTypes,
-  },
+  schema,
 });
