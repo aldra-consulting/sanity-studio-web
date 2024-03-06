@@ -80,6 +80,14 @@
           {
             "enforceForClassFields": false
           }
+        ],
+        "no-underscore-dangle": [
+          "error",
+          {
+            "allow": [
+              "_id"
+            ]
+          }
         ]
       }
     },
