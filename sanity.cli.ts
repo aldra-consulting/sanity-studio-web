@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 import { defineCliConfig } from 'sanity/cli';
 
 export default defineCliConfig({
@@ -9,4 +11,11 @@ export default defineCliConfig({
     port: 8005,
   },
   reactStrictMode: true,
+  vite: {
+    resolve: {
+      alias: {
+        '@project': join(__dirname, 'src'),
+      },
+    },
+  },
 });
