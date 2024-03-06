@@ -21,5 +21,8 @@ export default defineCliConfig({
         '@project': join(__dirname, 'src'),
       },
     },
+    define: {
+      'window.env': env(),
+    },
   },
 });
