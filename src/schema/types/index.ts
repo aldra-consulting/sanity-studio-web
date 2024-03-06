@@ -1,3 +1,5 @@
 import { type SchemaPluginOptions } from 'sanity';
 
-export default [] satisfies SchemaPluginOptions['types'];
+import documents from './documents';
+
+export default [...documents] as SchemaPluginOptions['types'];
