@@ -3,6 +3,7 @@
 .sanity
 .vscode
 
+env
 lib
 coverage
 node_modules
