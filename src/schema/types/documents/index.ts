@@ -1,3 +1,4 @@
+import client from './client';
 import language from './language';
 
-export default [language];
+export default [client, language];
