@@ -35,6 +35,11 @@
         ],
         "pathGroups": [
           {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
             "pattern": "@aldra-consulting/*",
             "group": "internal",
             "position": "before"
@@ -46,6 +51,7 @@
           }
         ],
         "pathGroupsExcludedImportTypes": [
+          "react",
           "@aldra-consulting/*",
           "@(app|src|project)/*"
         ],
