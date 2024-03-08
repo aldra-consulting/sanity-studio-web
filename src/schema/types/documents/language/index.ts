@@ -1,7 +1,14 @@
 import { defineField, defineType } from 'sanity';
 import { type Value } from 'sanity-plugin-internationalized-array';
 
+import { LanguageCode } from '@project/enums';
+import { type Nullable } from '@project/types';
 import { isDefined } from '@project/utils';
+
+import { LanguageSelect } from './components';
+import { LanguageCodeToTitledListValueConverter } from './utils';
+
+const converter = new LanguageCodeToTitledListValueConverter();
 
 export default defineType({
   name: 'language',
@@ -14,40 +21,35 @@ export default defineType({
       title: 'Code',
       description: 'Language code according to IS0 639-1 standard',
       options: {
-        list: [
-          { value: 'en', title: 'en' },
-          { value: 'no', title: 'no' },
-        ],
+        list: Object.values(LanguageCode).map(converter.convert),
+      },
+      components: {
+        input: LanguageSelect,
       },
       validation: (rule) => [
         rule.required().error('Language code is required'),
-        rule
-          .length(2)
-          .error('Language code must comply with ISO 639-1 standard'),
-        rule.custom(async (code, { getClient, document: { _id: id } = {} }) => {
-          if (isDefined(code) && isDefined(id)) {
-            const client = getClient({ apiVersion: '2024-03-06' });
-            const query =
-              'count(*[_type == "language" && _id != $id && !(_id in path("drafts.**")) && code == $code])';
-
-            const count = await client.fetch<number>(query, {
-              id,
-              code,
-            });
-
-            return count >= 1
-              ? 'Language document must be globally unique'
-              : true;
-          }
-
-          return true;
-        }),
+        rule.custom<LanguageCode>(
+          (value) =>
+            (isDefined(value) && Object.values(LanguageCode).includes(value)) ||
+            'Language code must comply with ISO 639-1 standard'
+        ),
       ],
     }),
     defineField({
       name: 'label',
       type: 'internationalizedArrayString',
       title: 'Label',
+      validation: (rule) => [
+        rule.required().error('Label is required'),
+        rule.min(1).error('Label must be provided in at least one language'),
+        rule.custom<Nullable<Value[]>>((labels) => {
+          const hasBlankValues = labels?.some(
+            ({ value }) => (value ?? '').trim().length === 0
+          );
+
+          return hasBlankValues ? 'Labels cannot be blank' : true;
+        }),
+      ],
     }),
   ],
   preview: {
@@ -56,7 +58,10 @@ export default defineType({
       labels: 'label',
     },
     prepare: ({ code, labels }: { code: string; labels: Value[] }) => {
-      const label = labels.find(({ _key }) => _key === 'en')?.value?.trim();
+      // TODO: pick language based on Studio UI, otherwise use English
+      const label = labels
+        .find(({ _key }) => _key === LanguageCode.EN.toString())
+        ?.value?.trim();
 
       return {
         title: isDefined(label) ? `${label} (${code})` : 'Untitled',
