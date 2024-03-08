@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "@aldra-consulting/sanity-studio-web",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "An instance of Sanity Studio for content management.",
   "repository": {
     "type": "git",

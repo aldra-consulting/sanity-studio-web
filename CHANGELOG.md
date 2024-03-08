@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.1.0...1.2.0) (2024-03-08)
+
+
+### Features
+
+* use LanguageCode enum consistently ([7b4bb9c](https://github.com/aldra-consulting/sanity-studio-web/commit/7b4bb9ca897081ee9272d1c4671f68f7a57db555))
+
 # [1.1.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.0.0...1.1.0) (2024-03-07)
 
 
