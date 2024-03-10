@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.2.0...1.3.0) (2024-03-10)
+
+
+### Features
+
+* add Mission document definition ([61a5278](https://github.com/aldra-consulting/sanity-studio-web/commit/61a5278f5f983210bec5f3e133c45bdea645c8c8))
+* allow field translation on text type ([2e534a2](https://github.com/aldra-consulting/sanity-studio-web/commit/2e534a29fb3acbf641babaaf7e3275dba6a4edfe))
+
 # [1.2.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.1.0...1.2.0) (2024-03-08)
 
 
