@@ -7,5 +7,5 @@ export default () =>
       { id: 'en', title: 'English' },
     ],
     defaultLanguages: ['no'],
-    fieldTypes: ['string'],
+    fieldTypes: ['string', 'text'],
   });
