@@ -11,7 +11,10 @@ export default () =>
           ...builder
             .documentTypeListItems()
             .filter(
-              (listItem) => !['language'].includes(listItem.getId() ?? '')
+              (listItem) =>
+                !['language', 'commonReferenceLevel'].includes(
+                  listItem.getId() ?? ''
+                )
             )
             .map((listItem) => listItem.showIcon(false)),
           builder.divider(),
@@ -30,6 +33,14 @@ export default () =>
                     .title('Languages')
                     .child(
                       builder.documentTypeList('language').title('Languages')
+                    ),
+                  builder
+                    .listItem()
+                    .title('Common reference levels')
+                    .child(
+                      builder
+                        .documentTypeList('commonReferenceLevel')
+                        .title('Common reference levels')
                     ),
                 ])
             ),
