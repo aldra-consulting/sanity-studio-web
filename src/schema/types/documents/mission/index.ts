@@ -65,6 +65,9 @@ export default defineType({
       type: 'reference',
       title: 'Client',
       to: { type: 'client' },
+      options: {
+        disableNew: true,
+      },
     }),
     defineField({
       name: 'status',
