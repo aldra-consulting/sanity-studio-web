@@ -1,8 +1,9 @@
-import { defineField, defineType } from 'sanity';
+import { defineType, defineField, defineArrayMember } from 'sanity';
 import { type Value } from 'sanity-plugin-internationalized-array';
 
-import { LanguageCode } from '@project/enums';
+import { LanguageCode, type CommonReferenceLevel } from '@project/enums';
 import { type Nullable } from '@project/types';
+import { isDefined } from '@project/utils';
 
 export default defineType({
   name: 'mission',
@@ -78,6 +79,65 @@ export default defineType({
         ],
       },
       validation: (rule) => [rule.required().error('Status is required')],
+    }),
+    defineField({
+      name: 'languageRequirements',
+      type: 'array',
+      title: 'Language requirements',
+      of: [
+        defineArrayMember({
+          name: 'languageRequirement',
+          type: 'object',
+          title: 'Language requirement',
+          fields: [
+            defineField({
+              name: 'language',
+              type: 'reference',
+              to: { type: 'language' },
+              title: 'Language',
+              options: {
+                disableNew: true,
+              },
+              validation: (rule) => [rule.required()],
+            }),
+            defineField({
+              name: 'proficiency',
+              type: 'reference',
+              to: { type: 'commonReferenceLevel' },
+              title: 'Proficiency',
+              options: {
+                disableNew: true,
+              },
+              validation: (rule) => [rule.required()],
+            }),
+          ],
+          preview: {
+            select: {
+              labels: 'language.label',
+              proficiency: 'proficiency.value',
+            },
+            prepare({
+              labels,
+              proficiency,
+            }: {
+              labels?: Value[];
+              proficiency?: CommonReferenceLevel;
+            }) {
+              const label = labels?.find(
+                ({ _key }) => _key === LanguageCode.EN.toString()
+              )?.value;
+
+              return {
+                title:
+                  isDefined(label) && isDefined(proficiency)
+                    ? `${label} (${proficiency})`
+                    : undefined,
+              };
+            },
+          },
+        }),
+      ],
+      validation: (rule) => [rule.unique()],
     }),
   ],
   preview: {
