@@ -54,17 +54,16 @@ export default defineType({
   ],
   preview: {
     select: {
-      code: 'code',
       labels: 'label',
     },
-    prepare: ({ code, labels }: { code: string; labels: Value[] }) => {
+    prepare: ({ labels }: { code: string; labels: Value[] }) => {
       // TODO: pick language based on Studio UI, otherwise use English
       const label = labels
         .find(({ _key }) => _key === LanguageCode.EN.toString())
         ?.value?.trim();
 
       return {
-        title: isDefined(label) ? `${label} (${code})` : 'Untitled',
+        title: isDefined(label) ? label : 'Untitled',
       };
     },
   },
