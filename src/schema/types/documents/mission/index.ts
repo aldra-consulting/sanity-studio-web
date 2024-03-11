@@ -26,6 +26,22 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'brief',
+      type: 'internationalizedArrayText',
+      title: 'Brief',
+      validation: (rule) => [
+        rule.required().error('Brief is required'),
+        rule.min(1).error('Brief must be provided in at least one language'),
+        rule.custom<Nullable<Value[]>>((labels) => {
+          const hasBlankValues = labels?.some(
+            ({ value }) => (value ?? '').trim().length === 0
+          );
+
+          return hasBlankValues ? 'Briefs cannot be blank' : true;
+        }),
+      ],
+    }),
+    defineField({
       name: 'description',
       type: 'internationalizedArrayText',
       title: 'Description',
