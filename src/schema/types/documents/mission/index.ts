@@ -142,6 +142,89 @@ export default defineType({
       ],
       validation: (rule) => [rule.unique()],
     }),
+    defineField({
+      name: 'awardCriteria',
+      title: 'Award criteria',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'awardCriterion',
+          title: 'Award criterion',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'criterion',
+              title: 'Criterion',
+              type: 'string',
+              options: {
+                list: [
+                  { value: 'quality', title: 'Quality' },
+                  { value: 'price', title: 'Price' },
+                ],
+              },
+              validation: (rule) => [rule.required()],
+            }),
+            defineField({
+              name: 'weight',
+              title: 'Weight',
+              type: 'number',
+              validation: (rule) => [
+                rule.required(),
+                rule.positive(),
+                rule.integer(),
+                rule.min(0),
+                rule.max(100),
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              criterion: 'criterion',
+              weight: 'weight',
+            },
+            prepare({
+              criterion,
+              weight,
+            }: {
+              criterion?: 'quality' | 'price';
+              weight?: number;
+            }) {
+              const titles: Record<'quality' | 'price', string> = {
+                quality: 'Quality',
+                price: 'Price',
+              };
+
+              return {
+                title:
+                  isDefined(criterion) && isDefined(weight)
+                    ? `${titles[criterion]} (${weight}%)`
+                    : '',
+              };
+            },
+          },
+        }),
+      ],
+      validation: (rule) => [
+        rule.required(),
+        rule.unique(),
+        rule.custom<{ criterion: 'quality' | 'price' }[]>((value) => {
+          const criteria = value?.map(({ criterion }) => criterion) ?? [];
+          const hasDuplicates = new Set(criteria).size !== criteria.length;
+
+          return hasDuplicates
+            ? 'There can only be one criterion of each type'
+            : true;
+        }),
+        rule.custom<{ weight: number }[]>((value) => {
+          const sum =
+            value?.reduce((previous, { weight }) => previous + weight, 0) ?? 0;
+
+          return sum !== 100
+            ? 'There sum of criteria weights must add up to 100%'
+            : true;
+        }),
+      ],
+    }),
   ],
   preview: {
     select: {
