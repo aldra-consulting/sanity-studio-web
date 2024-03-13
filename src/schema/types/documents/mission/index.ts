@@ -225,6 +225,16 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'representative',
+      title: 'Representative',
+      type: 'reference',
+      to: { type: 'person' },
+      options: {
+        disableNew: true,
+      },
+      validation: (rule) => [rule.required()],
+    }),
   ],
   preview: {
     select: {
