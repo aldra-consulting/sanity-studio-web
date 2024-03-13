@@ -190,7 +190,7 @@ export default defineType({
             }) {
               const label =
                 criterion?.find(
-                  ({ _key }) => _key === LanguageCode.NO.toString()
+                  ({ _key }) => _key === LanguageCode.EN.toString()
                 )?.value ?? 'Untitled';
 
               return {
