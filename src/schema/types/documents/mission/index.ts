@@ -155,12 +155,10 @@ export default defineType({
             defineField({
               name: 'criterion',
               title: 'Criterion',
-              type: 'string',
+              type: 'reference',
+              to: { type: 'criterion' },
               options: {
-                list: [
-                  { value: 'quality', title: 'Quality' },
-                  { value: 'price', title: 'Price' },
-                ],
+                disableNew: true,
               },
               validation: (rule) => [rule.required()],
             }),
@@ -168,6 +166,7 @@ export default defineType({
               name: 'weight',
               title: 'Weight',
               type: 'number',
+              initialValue: 0,
               validation: (rule) => [
                 rule.required(),
                 rule.positive(),
@@ -179,25 +178,25 @@ export default defineType({
           ],
           preview: {
             select: {
-              criterion: 'criterion',
+              criterion: 'criterion.label',
               weight: 'weight',
             },
             prepare({
               criterion,
               weight,
             }: {
-              criterion?: 'quality' | 'price';
+              criterion?: Value[];
               weight?: number;
             }) {
-              const titles: Record<'quality' | 'price', string> = {
-                quality: 'Quality',
-                price: 'Price',
-              };
+              const label =
+                criterion?.find(
+                  ({ _key }) => _key === LanguageCode.NO.toString()
+                )?.value ?? 'Untitled';
 
               return {
                 title:
-                  isDefined(criterion) && isDefined(weight)
-                    ? `${titles[criterion]} (${weight}%)`
+                  isDefined(label) && isDefined(weight)
+                    ? `${label} (${weight}%)`
                     : '',
               };
             },
@@ -207,8 +206,9 @@ export default defineType({
       validation: (rule) => [
         rule.required(),
         rule.unique(),
-        rule.custom<{ criterion: 'quality' | 'price' }[]>((value) => {
-          const criteria = value?.map(({ criterion }) => criterion) ?? [];
+        rule.custom<{ criterion: { _ref: string } }[]>((value) => {
+          const criteria =
+            value?.map(({ criterion: { _ref: reference } }) => reference) ?? [];
           const hasDuplicates = new Set(criteria).size !== criteria.length;
 
           return hasDuplicates
