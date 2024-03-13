@@ -12,7 +12,7 @@ export default () =>
             .documentTypeListItems()
             .filter(
               (listItem) =>
-                !['language', 'commonReferenceLevel'].includes(
+                !['language', 'commonReferenceLevel', 'criterion'].includes(
                   listItem.getId() ?? ''
                 )
             )
@@ -41,6 +41,12 @@ export default () =>
                       builder
                         .documentTypeList('commonReferenceLevel')
                         .title('Common reference levels')
+                    ),
+                  builder
+                    .listItem()
+                    .title('Criteria')
+                    .child(
+                      builder.documentTypeList('criterion').title('Criteria')
                     ),
                 ])
             ),

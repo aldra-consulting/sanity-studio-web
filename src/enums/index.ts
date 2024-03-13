@@ -11,3 +11,8 @@ export enum CommonReferenceLevel {
   C1 = 'C1',
   C2 = 'C2',
 }
+
+export enum Criterion {
+  QUALITY = 'quality',
+  PRICE = 'price',
+}
