@@ -84,6 +84,260 @@ export default defineType({
       validation: (rule) => [rule.required().error('Status is required')],
     }),
     defineField({
+      name: 'details',
+      title: 'Details',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'deadline',
+          title: 'Deadline',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'type',
+              title: 'Type',
+              type: 'string',
+              initialValue: 'deadline',
+              readOnly: true,
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'datetime',
+              validation: (rule) => [rule.required()],
+            }),
+          ],
+          preview: {
+            select: {
+              value: 'value',
+            },
+            prepare({ value }: { value?: string }) {
+              return {
+                title: 'Deadline',
+                subtitle: isDefined(value)
+                  ? new Intl.DateTimeFormat('no-NB', {
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    }).format(new Date(value))
+                  : undefined,
+              };
+            },
+          },
+        }),
+        defineArrayMember({
+          name: 'commencement',
+          title: 'Commencement',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'type',
+              title: 'Type',
+              type: 'string',
+              initialValue: 'commencement',
+              readOnly: true,
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'date',
+              validation: (rule) => [rule.required()],
+            }),
+          ],
+          preview: {
+            select: {
+              value: 'value',
+            },
+            prepare({ value }: { value?: string }) {
+              return {
+                title: 'Deadline',
+                subtitle: isDefined(value)
+                  ? new Intl.DateTimeFormat('no-NB', {
+                      dateStyle: 'short',
+                    }).format(new Date(value))
+                  : undefined,
+              };
+            },
+          },
+        }),
+        defineArrayMember({
+          name: 'duration',
+          title: 'Duration',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'type',
+              title: 'Type',
+              type: 'string',
+              initialValue: 'duration',
+              readOnly: true,
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'internationalizedArrayString',
+              validation: (rule) => [
+                rule.required(),
+                rule.min(1),
+                rule.custom<Nullable<Value[]>>((labels) => {
+                  const hasBlankValues = labels?.some(
+                    ({ value }) => (value ?? '').trim().length === 0
+                  );
+
+                  return hasBlankValues ? 'Duration cannot be blank' : true;
+                }),
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              value: 'value',
+            },
+            prepare({ value }: { value?: Value[] }) {
+              return {
+                title: 'Duration',
+                subtitle: value?.find(
+                  ({ _key }) => _key === LanguageCode.NO.toString()
+                )?.value,
+              };
+            },
+          },
+        }),
+        defineArrayMember({
+          name: 'scope',
+          title: 'Scope',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'type',
+              title: 'Type',
+              type: 'string',
+              initialValue: 'scope',
+              readOnly: true,
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'number',
+              initialValue: 0,
+              validation: (rule) => [
+                rule.required(),
+                rule.positive(),
+                rule.integer(),
+                rule.min(0),
+                rule.max(100),
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              value: 'value',
+            },
+            prepare({ value }: { value?: number }) {
+              return {
+                title: 'Scope',
+                subtitle: isDefined(value) ? `${value}%` : undefined,
+              };
+            },
+          },
+        }),
+        defineArrayMember({
+          name: 'location',
+          title: 'Location',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'type',
+              title: 'Type',
+              type: 'string',
+              initialValue: 'location',
+              readOnly: true,
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'internationalizedArrayString',
+              validation: (rule) => [
+                rule.required(),
+                rule.min(1),
+                rule.custom<Nullable<Value[]>>((labels) => {
+                  const hasBlankValues = labels?.some(
+                    ({ value }) => (value ?? '').trim().length === 0
+                  );
+
+                  return hasBlankValues ? 'Location cannot be blank' : true;
+                }),
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              value: 'value',
+            },
+            prepare({ value }: { value?: Value[] }) {
+              return {
+                title: 'Location',
+                subtitle: value?.find(
+                  ({ _key }) => _key === LanguageCode.NO.toString()
+                )?.value,
+              };
+            },
+          },
+        }),
+      ],
+      validation: (rule) => [
+        rule.unique(),
+        rule.custom<
+          (
+            | { type: 'deadline' }
+            | { type: 'commencement' }
+            | { type: 'duration' }
+            | { type: 'scope' }
+            | { type: 'location' }
+          )[]
+        >((value) => {
+          const types = value?.map(({ type }) => type) ?? [];
+          const hasDuplicates = new Set(types).size !== types.length;
+
+          return hasDuplicates
+            ? 'There can only be one detail of each type'
+            : true;
+        }),
+        rule.custom<
+          (
+            | { type: 'deadline' }
+            | { type: 'commencement' }
+            | { type: 'duration' }
+            | { type: 'scope' }
+            | { type: 'location' }
+          )[]
+        >((value) => {
+          const types = value?.map(({ type }) => type) ?? [];
+
+          if (!types.includes('deadline')) {
+            return 'Deadline for a mission must be specified';
+          }
+
+          if (!types.includes('commencement')) {
+            return 'Commencement date of a mission must be specified';
+          }
+
+          if (!types.includes('duration')) {
+            return 'Duration of a mission must be specified';
+          }
+
+          if (!types.includes('scope')) {
+            return 'Scope of a mission must be specified';
+          }
+
+          if (!types.includes('location')) {
+            return 'Location of a mission must be specified';
+          }
+
+          return true;
+        }),
+      ],
+    }),
+    defineField({
       name: 'languageRequirements',
       type: 'array',
       title: 'Language requirements',
