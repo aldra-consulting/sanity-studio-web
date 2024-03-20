@@ -84,6 +84,275 @@ export default defineType({
       validation: (rule) => [rule.required().error('Status is required')],
     }),
     defineField({
+      name: 'roles',
+      title: 'Roles',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'role',
+          title: 'Role',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              type: 'internationalizedArrayString',
+              title: 'Label',
+              validation: (rule) => [
+                rule.required().error('Label is required'),
+                rule
+                  .min(1)
+                  .error('Label must be provided in at least one language'),
+                rule.custom<Nullable<Value[]>>((labels) => {
+                  const hasBlankValues = labels?.some(
+                    ({ value }) => (value ?? '').trim().length === 0
+                  );
+
+                  return hasBlankValues ? 'Labels cannot be blank' : true;
+                }),
+              ],
+            }),
+            defineField({
+              name: 'description',
+              type: 'internationalizedArrayText',
+              title: 'Description',
+              validation: (rule) => [
+                rule.required().error('Description is required'),
+                rule
+                  .min(1)
+                  .error(
+                    'Description must be provided in at least one language'
+                  ),
+                rule.custom<Nullable<Value[]>>((labels) => {
+                  const hasBlankValues = labels?.some(
+                    ({ value }) => (value ?? '').trim().length === 0
+                  );
+
+                  return hasBlankValues ? 'Descriptions cannot be blank' : true;
+                }),
+              ],
+            }),
+            defineField({
+              name: 'status',
+              type: 'string',
+              title: 'Status',
+              initialValue: 'open',
+              options: {
+                list: [
+                  { value: 'open', title: 'open' },
+                  { value: 'review', title: 'review' },
+                  { value: 'filled', title: 'filled' },
+                ],
+              },
+              validation: (rule) => [rule.required()],
+            }),
+            defineField({
+              name: 'qualificationRequirements',
+              title: 'Qualification requirements',
+              type: 'array',
+              of: [
+                defineArrayMember({
+                  name: 'mandatoryRequirement',
+                  title: 'Mandatory requirement',
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'level',
+                      title: 'Level',
+                      type: 'string',
+                      initialValue: 'must',
+                      readOnly: true,
+                      validation: (rule) => [rule.required()],
+                    }),
+                    defineField({
+                      name: 'label',
+                      type: 'string',
+                      title: 'Label',
+                      validation: (rule) => [rule.required()],
+                    }),
+                    defineField({
+                      name: 'description',
+                      type: 'internationalizedArrayText',
+                      title: 'Description',
+                      validation: (rule) => [
+                        rule.required().error('Description is required'),
+                        rule
+                          .min(1)
+                          .error(
+                            'Description must be provided in at least one language'
+                          ),
+                        rule.custom<Nullable<Value[]>>((labels) => {
+                          const hasBlankValues = labels?.some(
+                            ({ value }) => (value ?? '').trim().length === 0
+                          );
+
+                          return hasBlankValues
+                            ? 'Descriptions cannot be blank'
+                            : true;
+                        }),
+                      ],
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      label: 'label',
+                      descriptions: 'description',
+                    },
+                    prepare({
+                      label,
+                      descriptions,
+                    }: {
+                      label?: string;
+                      descriptions?: Value[];
+                    }) {
+                      return {
+                        title: isDefined(label) ? `MUST: ${label}` : 'MUST',
+                        subtitle: descriptions?.find(
+                          ({ _key }) => _key === LanguageCode.NO.toString()
+                        )?.value,
+                      };
+                    },
+                  },
+                }),
+                defineArrayMember({
+                  name: 'optionalRequirement',
+                  title: 'Optional requirement',
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'level',
+                      title: 'Level',
+                      type: 'string',
+                      initialValue: 'should',
+                      readOnly: true,
+                      validation: (rule) => [rule.required()],
+                    }),
+                    defineField({
+                      name: 'label',
+                      type: 'string',
+                      title: 'Label',
+                      validation: (rule) => [rule.required()],
+                    }),
+                    defineField({
+                      name: 'description',
+                      type: 'internationalizedArrayText',
+                      title: 'Description',
+                      validation: (rule) => [
+                        rule.required().error('Description is required'),
+                        rule
+                          .min(1)
+                          .error(
+                            'Description must be provided in at least one language'
+                          ),
+                        rule.custom<Nullable<Value[]>>((labels) => {
+                          const hasBlankValues = labels?.some(
+                            ({ value }) => (value ?? '').trim().length === 0
+                          );
+
+                          return hasBlankValues
+                            ? 'Descriptions cannot be blank'
+                            : true;
+                        }),
+                      ],
+                    }),
+                    defineField({
+                      name: 'weight',
+                      title: 'Weight',
+                      type: 'number',
+                      validation: (rule) => [
+                        rule.positive(),
+                        rule.integer(),
+                        rule.min(0),
+                        rule.max(100),
+                      ],
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      label: 'label',
+                      descriptions: 'description',
+                      weight: 'weight',
+                    },
+                    prepare({
+                      label,
+                      descriptions,
+                      weight,
+                    }: {
+                      label?: string;
+                      descriptions?: Value[];
+                      weight?: number;
+                    }) {
+                      return {
+                        title: isDefined(label)
+                          ? `SHOULD: ${label}${isDefined(weight) ? ` (${weight}%)` : ''}`
+                          : `SHOULD${isDefined(weight) ? ` (${weight}%)` : ''}`,
+                        subtitle: descriptions?.find(
+                          ({ _key }) => _key === LanguageCode.NO.toString()
+                        )?.value,
+                      };
+                    },
+                  },
+                }),
+              ],
+              validation: (rule) => [
+                rule.custom<
+                  ({ level: 'must' } | { level: 'should'; weight: number })[]
+                >((value) => {
+                  const hasOptionalRequirements = value?.some(
+                    ({ level }) => level === 'should'
+                  );
+
+                  if (hasOptionalRequirements) {
+                    const sum =
+                      value
+                        ?.filter(
+                          (
+                            requirement
+                          ): requirement is {
+                            level: 'should';
+                            weight: number;
+                          } => requirement.level === 'should'
+                        )
+                        .map(({ weight }) => weight)
+                        .reduce((previous, current) => previous + current, 0) ??
+                      0;
+
+                    return sum !== 100
+                      ? 'There sum of optional requirements weights must add up to 100%'
+                      : true;
+                  }
+
+                  return true;
+                }),
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              labels: 'label',
+              descriptions: 'description',
+            },
+            prepare({
+              labels,
+              descriptions,
+            }: {
+              labels?: Value[];
+              descriptions?: Value[];
+            }) {
+              return {
+                title: labels?.find(
+                  ({ _key }) => _key === LanguageCode.NO.toString()
+                )?.value,
+                subtitle: descriptions?.find(
+                  ({ _key }) => _key === LanguageCode.NO.toString()
+                )?.value,
+              };
+            },
+          },
+        }),
+      ],
+      validation: (rule) => [rule.required()],
+    }),
+    defineField({
       name: 'details',
       title: 'Details',
       type: 'array',
