@@ -1,3 +1,20 @@
+# [1.4.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.3.0...1.4.0) (2024-03-20)
+
+
+### Features
+
+* add 'awardCriteria' field to Mission document ([992e5fd](https://github.com/aldra-consulting/sanity-studio-web/commit/992e5fd1c7903e223fe8a30e310c6d20191bd65d))
+* add 'brief' field to Mission document ([1188f43](https://github.com/aldra-consulting/sanity-studio-web/commit/1188f437c80ee0bc2711bdcea1c8d84a19789c5f))
+* add 'details' field to Mission document ([bbba2dd](https://github.com/aldra-consulting/sanity-studio-web/commit/bbba2dde6edcda69b89a553569697debf0e4e481))
+* add 'languageRequirements' field to Mission document ([e81c13f](https://github.com/aldra-consulting/sanity-studio-web/commit/e81c13ff9d11e4c8238b43010fd3490b84ecc0cc))
+* add 'representative' field to Mission document ([742cc45](https://github.com/aldra-consulting/sanity-studio-web/commit/742cc45009574fb6ec90593a8510286c5a11a0b3))
+* add 'roles' field to Mission document ([40fa04f](https://github.com/aldra-consulting/sanity-studio-web/commit/40fa04f4b080315eed8c6d63574c5d56a3cd53c5))
+* add Common reference level document definition ([409ece0](https://github.com/aldra-consulting/sanity-studio-web/commit/409ece0fcbd8493ddd1c13d4bf116a9e473edff8))
+* add Criterion document definition ([9108d84](https://github.com/aldra-consulting/sanity-studio-web/commit/9108d84537178b0d04bc6b02065f9ba36dce88a1))
+* add Person document definition ([abf6d11](https://github.com/aldra-consulting/sanity-studio-web/commit/abf6d11563abf1937fab02ffec16117b3eae3f64))
+* change preview for Language document ([11ed163](https://github.com/aldra-consulting/sanity-studio-web/commit/11ed163306ae0b3adb724fef67d4129ce143ca01))
+* reference Criterion document in Mission's award criteria ([755743b](https://github.com/aldra-consulting/sanity-studio-web/commit/755743b7798a36d163900cb1f9c4ae37f983762f))
+
 # [1.3.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.2.0...1.3.0) (2024-03-10)
 
 
