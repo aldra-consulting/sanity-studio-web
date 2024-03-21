@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/aldra-consulting/sanity-studio-web/compare/1.4.0...1.4.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* use correct title ([056b4cc](https://github.com/aldra-consulting/sanity-studio-web/commit/056b4cccd038120af5f73fe221fe372c3fc2bffc))
+
 # [1.4.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.3.0...1.4.0) (2024-03-20)
 
 
