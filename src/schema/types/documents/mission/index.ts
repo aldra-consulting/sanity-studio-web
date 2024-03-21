@@ -418,7 +418,7 @@ export default defineType({
             },
             prepare({ value }: { value?: string }) {
               return {
-                title: 'Deadline',
+                title: 'Commencement',
                 subtitle: isDefined(value)
                   ? new Intl.DateTimeFormat('no-NB', {
                       dateStyle: 'short',
