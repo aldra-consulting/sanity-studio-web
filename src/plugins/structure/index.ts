@@ -51,4 +51,4 @@ export default () =>
                 ])
             ),
         ]),
-  }) as PluginOptions;
+  }) satisfies PluginOptions;
