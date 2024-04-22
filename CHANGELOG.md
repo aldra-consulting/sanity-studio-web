@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.4.1...1.5.0) (2024-04-22)
+
+
+### Bug Fixes
+
+* use satisifes keyword instead of assertion ([45824a8](https://github.com/aldra-consulting/sanity-studio-web/commit/45824a81f016cec0904b5d9d1085b4ca790881b9))
+
+
+### Features
+
+* add mission bookmarks document ([51d2709](https://github.com/aldra-consulting/sanity-studio-web/commit/51d270956d2eb613f17eab22525be5d42a7191e5))
+
 ## [1.4.1](https://github.com/aldra-consulting/sanity-studio-web/compare/1.4.0...1.4.1) (2024-03-21)
 
 
