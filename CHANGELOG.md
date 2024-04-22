@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.5.1...1.6.0) (2024-04-22)
+
+
+### Features
+
+* disable document actions on mission bookmarks documents ([0179aa0](https://github.com/aldra-consulting/sanity-studio-web/commit/0179aa0c283bdcbd9416c3f13d3ab064f9fb5fe8))
+
 ## [1.5.1](https://github.com/aldra-consulting/sanity-studio-web/compare/1.5.0...1.5.1) (2024-04-22)
 
 
