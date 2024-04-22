@@ -24,4 +24,7 @@ export default defineConfig({
   plugins,
   schema,
   document,
+  search: {
+    enableLegacySearch: false,
+  },
 });
