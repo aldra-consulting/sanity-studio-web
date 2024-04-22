@@ -25,6 +25,6 @@ export default defineConfig({
   schema,
   document,
   search: {
-    enableLegacySearch: false,
+    enableLegacySearch: true,
   },
 });
