@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/aldra-consulting/sanity-studio-web/compare/1.5.0...1.5.1) (2024-04-22)
+
+
+### Bug Fixes
+
+* use legacy search to circumvent a bug in Sanity Studio ([d865f61](https://github.com/aldra-consulting/sanity-studio-web/commit/d865f610b8bff0b66cb2a9c7ee920d8868547f03))
+
 # [1.5.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.4.1...1.5.0) (2024-04-22)
 
 
