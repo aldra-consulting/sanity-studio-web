@@ -1,5 +1,6 @@
 import { defineConfig } from 'sanity';
 
+import document from '@project/document';
 import plugins from '@project/plugins';
 import schema from '@project/schema';
 import { type Environment } from '@project/types';
@@ -22,4 +23,5 @@ export default defineConfig({
   dataset,
   plugins,
   schema,
+  document,
 });
