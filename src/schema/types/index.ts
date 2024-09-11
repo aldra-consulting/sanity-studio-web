@@ -1,5 +1,6 @@
 import { type SchemaPluginOptions } from 'sanity';
 
 import documents from './documents';
+import symbol from './symbol';
 
-export default [...documents] as SchemaPluginOptions['types'];
+export default [symbol, ...documents] as SchemaPluginOptions['types'];
