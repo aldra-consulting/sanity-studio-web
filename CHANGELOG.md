@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.6.0...1.7.0) (2024-09-11)
+
+
+### Bug Fixes
+
+* address vulnerabilities ([0a60b55](https://github.com/aldra-consulting/sanity-studio-web/commit/0a60b55d4137df036afba48f38a1c53984e98a78))
+
+
+### Features
+
+* add 'socialMedium' document ([7059393](https://github.com/aldra-consulting/sanity-studio-web/commit/7059393a130c017087e5221d4b5769d771a2230a))
+* add 'symbol' schema type ([d2246d8](https://github.com/aldra-consulting/sanity-studio-web/commit/d2246d84ba37f7aca253288979b7e0c81be78fd5))
+
 # [1.6.0](https://github.com/aldra-consulting/sanity-studio-web/compare/1.5.1...1.6.0) (2024-04-22)
 
 
