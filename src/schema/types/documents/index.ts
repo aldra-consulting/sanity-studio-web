@@ -5,6 +5,7 @@ import criterion from './criterion';
 import language from './language';
 import mission from './mission';
 import person from './person';
+import socialMedium from './social-medium';
 
 export default [
   ...bookmark,
@@ -14,4 +15,5 @@ export default [
   criterion,
   mission,
   person,
+  socialMedium,
 ];
